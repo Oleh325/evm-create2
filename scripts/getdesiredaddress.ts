@@ -1,6 +1,5 @@
 import { ethers, run } from "hardhat"
-import { getCreate2Address, keccak256 } from "ethers"
-import bytecode from "../artifacts/contracts/Greeter.sol/Greeter.json"
+import { keccak256 } from "ethers"
 
 const main = async () => {
     await run("compile")
@@ -14,7 +13,6 @@ const main = async () => {
 
     while (true) {
         const salt = keccak256(Uint8Array.from([i]))
-        const initCodeHash = keccak256(bytecode.bytecode)
         address = await deployer.computeAddress(salt)
         console.log(`Current address is: ${address}`)
         if (address.slice(40, 42) === "69") {
