@@ -15,7 +15,7 @@ const main = async () => {
     while (true) {
         const salt = keccak256(Uint8Array.from([i]))
         const initCodeHash = keccak256(bytecode.bytecode)
-        address = getCreate2Address(await deployer.getAddress(), salt, initCodeHash)
+        address = await deployer.computeAddress(salt)
         console.log(`Current address is: ${address}`)
         if (address.slice(40, 42) === "69") {
             break
